@@ -1,28 +1,17 @@
 require('@nomicfoundation/hardhat-toolbox')
 
 module.exports = {
-  defaultNetwork: 'localhost',
+  solidity: "0.8.24",
   networks: {
-    hardhat: {},
-    localhost: {
-      url: 'http://127.0.0.1:8545',
-    },
-    // bitfinity: {
-    //   url: 'https://testnet.bitfinity.network',
-    //   accounts: [''],
-    //   chainId: 355113,
-    // },
-  },
-  solidity: {
-    version: '0.8.17',
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 200,
-      },
+    base_sepolia: {
+      url: "https://base-sepolia.g.alchemy.com/v2/k8dpUeP7Mbr1CFWEkIwjsEbzqlRHdH13", 
+      accounts: ["43dfd9255cbaad2e6692320469d62f6c140f40cc58138e977ad769c98f916cba"], 
     },
   },
   mocha: {
     timeout: 40000,
   },
 }
+module.exports = {
+ 
+};

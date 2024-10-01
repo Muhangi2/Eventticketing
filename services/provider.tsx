@@ -17,9 +17,8 @@ import { publicProvider } from 'wagmi/providers/public'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 
-// Define Base Sepolia testnet chain
 const baseSepolia: Chain = {
-  id: 84531, // Chain ID for Base Sepolia testnet
+  id: 84531, 
   name: 'Base Sepolia',
   network: 'base-sepolia',
   iconUrl: 'https://base.org/favicon.ico',
@@ -27,44 +26,42 @@ const baseSepolia: Chain = {
   nativeCurrency: {
     decimals: 18,
     name: 'Sepolia ETH',
-    symbol: 'ETH', // Base Sepolia uses ETH as the native currency
+    symbol: 'ETH', 
   },
   rpcUrls: {
-    public: { http: ['https://sepolia.base.org'] }, // RPC URL for Base Sepolia testnet
+    public: { http: ['https://sepolia.base.org'] }, 
     default: { http: ['https://sepolia.base.org'] },
   },
   blockExplorers: {
-    default: { name: 'Base Sepolia Explorer', url: 'https://sepolia.basescan.org' }, // Explorer for Base Sepolia
+    default: { name: 'Base Sepolia Explorer', url: 'https://sepolia.basescan.org' }, 
   },
-  testnet: true, // Mark as testnet
+  testnet: true, 
 }
 
-// Configure chains to use only Base Sepolia
 const { chains, publicClient } = configureChains(
-  [baseSepolia], // Only Base Sepolia is included
+  [baseSepolia], 
   [
-    // alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID as string }), 
-    alchemyProvider({ apiKey: "https://base-sepolia.g.alchemy.com/v2/hw16gk_R62OY4SLP4aPp37bTOTrh9xYu" }),
-    publicProvider() // Fallback to public provider
+    alchemyProvider({ apiKey:process.env.NEXT_PUBLIC_ALCHEMY_API_KEY as string }),
+    publicProvider() 
   ]
 )
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string
 
-// Configure wallet connectors
+
 const connectors = connectorsForWallets([
   {
     groupName: 'Recommended',
     wallets: [
-      metaMaskWallet({ projectId, chains }),  // MetaMask wallet for Base Sepolia
-      trustWallet({ projectId, chains }),     // Trust Wallet for Base Sepolia
-      coinbaseWallet({ appName: 'Coinbase', chains }), // Coinbase Wallet
-      rainbowWallet({ projectId, chains }),   // Rainbow Wallet
+      metaMaskWallet({ projectId, chains }),  
+      trustWallet({ projectId, chains }),     
+      coinbaseWallet({ appName: 'Coinbase', chains }), 
+      rainbowWallet({ projectId, chains }),   
     ],
   },
 ])
 
-// Wagmi config
+
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
