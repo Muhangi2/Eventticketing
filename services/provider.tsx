@@ -1,5 +1,4 @@
-'use client'
-
+"use client"
 import * as React from 'react'
 import {
   GetSiweMessageOptions,
@@ -13,67 +12,72 @@ import {
   coinbaseWallet,
   rainbowWallet,
 } from '@rainbow-me/rainbowkit/wallets'
-import { mainnet, hardhat } from 'wagmi/chains'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 
-const bitfinity: Chain = {
-  id: 355113,
-  name: 'Bitfinity',
-  network: 'bitfinity',
-  iconUrl: 'https://bitfinity.network/logo.png',
-  iconBackground: '#000000',
+// Define Base Sepolia testnet chain
+const baseSepolia: Chain = {
+  id: 84531, // Chain ID for Base Sepolia testnet
+  name: 'Base Sepolia',
+  network: 'base-sepolia',
+  iconUrl: 'https://base.org/favicon.ico',
+  iconBackground: '#fff',
   nativeCurrency: {
     decimals: 18,
-    name: 'Bitfinity',
-    symbol: 'BFT',
+    name: 'Sepolia ETH',
+    symbol: 'ETH', // Base Sepolia uses ETH as the native currency
   },
   rpcUrls: {
-    public: { http: ['https://testnet.bitfinity.network'] },
-    default: { http: ['https://testnet.bitfinity.network'] },
+    public: { http: ['https://sepolia.base.org'] }, // RPC URL for Base Sepolia testnet
+    default: { http: ['https://sepolia.base.org'] },
   },
   blockExplorers: {
-    default: { name: 'Bitfinity Block Explorer', url: 'https://explorer.bitfinity.network/' },
-    etherscan: { name: 'Bitfinity Block Explorer', url: 'https://explorer.bitfinity.network/' },
+    default: { name: 'Base Sepolia Explorer', url: 'https://sepolia.basescan.org' }, // Explorer for Base Sepolia
   },
-  testnet: true,
+  testnet: true, // Mark as testnet
 }
 
+// Configure chains to use only Base Sepolia
 const { chains, publicClient } = configureChains(
-  [mainnet, bitfinity, hardhat],
-  [alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID as string }), publicProvider()]
+  [baseSepolia], // Only Base Sepolia is included
+  [
+    // alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID as string }), 
+    alchemyProvider({ apiKey: "https://base-sepolia.g.alchemy.com/v2/hw16gk_R62OY4SLP4aPp37bTOTrh9xYu" }),
+    publicProvider() // Fallback to public provider
+  ]
 )
 
 const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string
 
+// Configure wallet connectors
 const connectors = connectorsForWallets([
   {
     groupName: 'Recommended',
     wallets: [
-      metaMaskWallet({ projectId, chains }),
-      trustWallet({ projectId, chains }),
-      coinbaseWallet({ appName: 'Coinbase', chains }),
-      rainbowWallet({ projectId, chains }),
+      metaMaskWallet({ projectId, chains }),  // MetaMask wallet for Base Sepolia
+      trustWallet({ projectId, chains }),     // Trust Wallet for Base Sepolia
+      coinbaseWallet({ appName: 'Coinbase', chains }), // Coinbase Wallet
+      rainbowWallet({ projectId, chains }),   // Rainbow Wallet
     ],
   },
 ])
 
+// Wagmi config
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
   publicClient,
 })
 
+
 const demoAppInfo = {
-  appName: 'Dapp Funds dApp',
+  appName: 'Base Sepolia dApp',
 }
 
 const getSiweMessageOptions: GetSiweMessageOptions = () => ({
-  statement: `
-  Once you're signed in, you'll be able to access all of our dApp's features.
-  Thank you for partnering with CrowdFunding!`,
+  statement: `Once you're signed in, you'll be able to access all of our dApp's features on Base Sepolia.`,
 })
 
 export function Providers({
