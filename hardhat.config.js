@@ -1,17 +1,28 @@
 require('@nomicfoundation/hardhat-toolbox')
-
+require("dotenv").config(); 
 module.exports = {
-  solidity: "0.8.24",
+  defaultNetwork: 'localhost',
   networks: {
+    hardhat: {},
+    localhost: {
+      url: 'http://127.0.0.1:8545',
+    },
     base_sepolia: {
-      url: "https://base-sepolia.g.alchemy.com/v2/k8dpUeP7Mbr1CFWEkIwjsEbzqlRHdH13", 
-      accounts: ["43dfd9255cbaad2e6692320469d62f6c140f40cc58138e977ad769c98f916cba"], 
+      url: process.env.ALCHEMY_URL, 
+      chainId:84532,
+      accounts: [process.env.ACCOUNTKEY], 
+    },
+  },
+  solidity: {
+    version: '0.8.17',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
     },
   },
   mocha: {
     timeout: 40000,
   },
 }
-module.exports = {
- 
-};
