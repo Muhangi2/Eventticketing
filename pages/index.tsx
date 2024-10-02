@@ -17,7 +17,7 @@ const Page: NextPage<{ eventsData: EventStruct[] }> = ({ eventsData }) => {
 
   return (
     <div>
-      {/* <Head>
+      <Head>
         <title>BlockTickets</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -38,7 +38,7 @@ const Page: NextPage<{ eventsData: EventStruct[] }> = ({ eventsData }) => {
             Load More
           </button>
         </div>
-      )} */}
+      )}
     </div>
   )
 }
