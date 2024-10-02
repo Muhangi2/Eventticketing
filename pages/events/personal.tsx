@@ -27,7 +27,7 @@ const Page: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Event X | Personal</title>
+        <title>BlockTickets| Personal</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <EventList events={collection} />

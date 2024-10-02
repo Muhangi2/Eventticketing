@@ -21,6 +21,8 @@ interface ComponentProps {
 }
 
 const Page: NextPage<ComponentProps> = ({ eventData, ticketsData }) => {
+  console.log(eventData,"eventData")
+  console.log(ticketsData,"ticketsData")
   const dispatch = useDispatch()
   const { address } = useAccount()
 
@@ -59,10 +61,10 @@ const Page: NextPage<ComponentProps> = ({ eventData, ticketsData }) => {
             </div>
             <div className="flex justify-start items-center space-x-1 font-medium text-sm">
               {Date.now() < event.endsAt && (
-                <>
+                <div>
                   <span>{calculateDateDifference(event.endsAt, Date.now())} remaining</span>
                   <BsDot size={30} />
-                </>
+                </div>
               )}
               <span>{event.capacity - event.seats} seat(s) left</span>
             </div>

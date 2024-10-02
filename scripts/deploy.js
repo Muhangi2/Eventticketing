@@ -57,3 +57,7 @@ main().catch((error) => {
   console.error('Unhandled error:', error)
   process.exitCode = 1
 })
+// //hello
+// {
+//   "dappEventXContract": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+// }
