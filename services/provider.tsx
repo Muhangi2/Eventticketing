@@ -18,7 +18,7 @@ import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
 
 const baseSepolia: Chain = {
-  id: 84531, 
+  id: 84532, 
   name: 'Base Sepolia',
   network: 'base-sepolia',
   iconUrl: 'https://base.org/favicon.ico',

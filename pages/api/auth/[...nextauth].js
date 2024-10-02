@@ -38,6 +38,7 @@ export default async function auth(req, res) {
 
           return null
         } catch (error) {
+          console.log(error,"error")
           return null
         }
       },
